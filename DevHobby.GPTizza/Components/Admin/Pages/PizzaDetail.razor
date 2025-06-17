@@ -1,0 +1,58 @@
+﻿@page "/admin/pizzadetail/{pizzaId:int}"
+
+@attribute [Authorize(Roles = "Administrator")]
+
+@using Microsoft.AspNetCore.Authorization
+
+<h3>@Pizza.Name</h3>
+
+<div class="col-12 row">
+    <div class="col-2 text-center">
+        <img src="@Pizza.ImageUrl" class="img-fluid" width="500" />
+    </div>
+    <div class="col-10 row">
+        <div class="col-12 col-xxl-8">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Pizza ID</label>
+                <div class="col-sm-8">
+                    <label type="text" class="form-control-plaintext">@Pizza.Id</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Nazwa</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Pizza.Name</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Krótki opis</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Pizza.ShortDescription</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Opis</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@Pizza.LongDescription</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Pizza tygodnia</label>
+                <div class="col-sm-8">
+
+                    @if (Pizza.IsPizzaOfTheWeek)
+                    {
+                        <label type="text" readonly class="form-control-plaintext">TAK</label>
+                    }
+                    else
+                    {
+                        <label type="text" readonly class="form-control-plaintext">NIE</label>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

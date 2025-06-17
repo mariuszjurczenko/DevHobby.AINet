@@ -1,0 +1,70 @@
+﻿@page "/admin/pizzaadd"
+@rendermode InteractiveServer
+@attribute [Authorize(Roles = "Administrator")]
+@using Microsoft.AspNetCore.Authorization
+
+<h3>Dodaj nową pizzę</h3>
+
+@if (Generating)
+{
+    <div class="loading">
+        <div class='uil-ring-css' style='transform:scale(0.79);'>
+            <div></div>
+        </div>
+    </div>
+}
+
+@if (!IsSaved)
+{
+    <EditForm Model="Pizza" OnSubmit="OnSubmit" Enhance FormName="AddPizzaForm">
+
+        <div class="row mb-3">
+            <label for="Name" class="col-form-label col-md-3">Nazwa: </label>
+            <div class="col-md-8">
+                <InputText id="Name" class="form-control col-md-8" @bind-Value="@Pizza.Name" placeholder="Wprowadź nazwę pizzy"></InputText>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="shortDescription" class="col-form-label col-md-3">Krótki opis: </label>
+            <div class="col-md-8">
+                <InputText id="shortDescription" class="form-control col-md-8" @bind-Value="@Pizza.ShortDescription" placeholder="Wprowadz krótki opis:"></InputText>
+                <button type="button" class="btn btn-primary mt-1" @onclick="GenerateShortDescription">Generuj</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="longDescription" class="col-form-label col-md-3">Opis: </label>
+            <div class="col-md-8">
+                <InputTextArea id="longDescription" class="form-control" @bind-Value="@Pizza.LongDescription" placeholder="Wprowadz opis:"></InputTextArea>
+                <button type="button" class="btn btn-primary mt-1" @onclick="GenerateLongDescription">Generuj</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="imageUrl" class="col-form-label col-md-3">Image: </label>
+            <div class="col-md-8">
+                <InputText id="imageUrl" class="form-control col-md-8" @bind-Value="@Pizza.ImageUrl" placeholder="Wprowadz image URL"></InputText>
+                <button type="button" class="btn btn-primary mt-1 mb-2" @onclick="GenerateImage">Generuj</button>
+                <p>@((MarkupString)GeneratedImage)</p>
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="price" class="col-form-label col-md-3">Cena: </label>
+            <div class="col-md-8">
+                <InputNumber id="price" class="form-control col-md-8" @bind-Value="@Pizza.Price" placeholder="Wprowadz cene"></InputNumber>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-outline-primary ms-1">Wyślij</button>
+        </div>
+
+    </EditForm>
+}
+else
+{
+    <h4 class="text-success">@Message</h4>
+}

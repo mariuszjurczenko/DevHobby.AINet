@@ -1,0 +1,40 @@
+﻿@page "/admin/managepizzas"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Administrator")]
+
+<h3>Wszystkie Nasze Pizze</h3>
+
+<a href="admin/pizzaadd" class="btn btn-outline-primary btn-sm mb-1">Dodaj nową pizzę</a>
+
+@if (Pizzas == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th></th>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Działanie</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in Pizzas)
+            {
+                <tr>
+                    <td><img src="@pizza.ImageUrl" width="100" /></td>
+                    <td>@pizza.Name</td>
+                    <td>@pizza.Price</td>
+                    <td>
+                        <a href="@($"admin/pizzadetail/{pizza.Id}")" class="btn btn-outline-primary btn-sm mb-1">
+                            Szczegóły
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

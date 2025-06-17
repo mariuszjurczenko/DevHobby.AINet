@@ -1,0 +1,18 @@
+﻿@page "/admin/salesbot"
+@rendermode InteractiveServer
+@using DevHobby.GPTizza.Model
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Administrator")]
+
+<h3>Dev-Hobby Pizza Shop Bot sprzedaży</h3>
+<br />
+<h4>Zadaj pytanie o sprzedaż, na przykład "Proszę porównać sprzedaż z marca 2023 r. z marcem 2024 r."</h4>
+<div class="form-group">
+    <textarea id="questionTextArea" @bind="Question" class="form-control m-2" placeholder="Wpisz tutaj swoje pytanie..."></textarea>
+</div>
+<div>
+    <button class="btn btn-primary" @onclick="OnEnterQuestion">Dev-Hobby Bot sprzedaży</button>
+</div>
+<div class="mt-3">
+    <p>@Message</p>
+</div>

@@ -1,0 +1,59 @@
+﻿@page "/Account/Manage/Disable2fa"
+@using Microsoft.AspNetCore.Identity
+@using DevHobby.GPTizza.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject IdentityUserAccessor UserAccessor
+@inject IdentityRedirectManager RedirectManager
+@inject ILogger<Disable2fa> Logger
+
+<PageTitle>Disable two-factor authentication (2FA)</PageTitle>
+<StatusMessage />
+<h3>Disable two-factor authentication (2FA)</h3>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <strong>Ta czynność wyłącza tylko uwierzytelnianie dwuskładnikowe.</strong>
+    </p>
+    <p>
+        Wyłączenie 2FA nie zmienia kluczy używanych w aplikacjach uwierzytelniających. Jeśli chcesz zmienić klucz
+        używany w aplikacji uwierzytelniającej, powinieneś <a href="Account/Manage/ResetAuthenticator">zresetuj klucze uwierzytelniające.</a>
+    </p>
+</div>
+<div>
+    <form @formname="disable-2fa" @onsubmit="OnSubmitAsync" method="post">
+        <AntiforgeryToken />
+        <button class="btn btn-danger" type="submit">Wyłącz 2FA</button>
+    </form>
+</div>
+
+@code {
+    private ApplicationUser user = default!;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+
+        if (HttpMethods.IsGet(HttpContext.Request.Method) && !await UserManager.GetTwoFactorEnabledAsync(user))
+        {
+            throw new InvalidOperationException("Nie można wyłączyć 2FA dla użytkownika, ponieważ obecnie nie jest ono włączone.");
+        }
+    }
+
+    private async Task OnSubmitAsync()
+    {
+        var disable2faResult = await UserManager.SetTwoFactorEnabledAsync(user, false);
+        if (!disable2faResult.Succeeded)
+        {
+            throw new InvalidOperationException("Wystąpił nieoczekiwany błąd podczas wyłączania uwierzytelniania dwuskładnikowego..");
+        }
+
+        var userId = await UserManager.GetUserIdAsync(user);
+        Logger.LogInformation("Użytkownik o identyfikatorze '{UserId}' wyłączył 2fa", userId);
+        RedirectManager.RedirectToWithStatus(
+            "Account/Manage/TwoFactorAuthentication",
+            "2fa zostało wyłączone. Możesz ponownie włączyć 2fa podczas konfigurowania aplikacji uwierzytelniającej",
+            HttpContext);
+    }
+}

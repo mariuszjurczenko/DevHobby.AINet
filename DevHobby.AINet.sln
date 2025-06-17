@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHobby.AINet.PartOne.Stor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHobby.AINet.UseOpenAI", "DevHobby.AINet.UseOpenAI\DevHobby.AINet.UseOpenAI.csproj", "{8B9CAE4F-4FD0-4E56-28C5-338EDBAB13BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHobby.GPTizza", "DevHobby.GPTizza\DevHobby.GPTizza.csproj", "{242B6FC5-8C40-3EC3-4524-EE31E3CCEB9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8B9CAE4F-4FD0-4E56-28C5-338EDBAB13BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B9CAE4F-4FD0-4E56-28C5-338EDBAB13BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B9CAE4F-4FD0-4E56-28C5-338EDBAB13BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242B6FC5-8C40-3EC3-4524-EE31E3CCEB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242B6FC5-8C40-3EC3-4524-EE31E3CCEB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242B6FC5-8C40-3EC3-4524-EE31E3CCEB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242B6FC5-8C40-3EC3-4524-EE31E3CCEB9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

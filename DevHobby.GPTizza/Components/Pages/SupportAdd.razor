@@ -1,0 +1,60 @@
+﻿@page "/supportadd"
+@using DevHobby.GPTizza.Model
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "User")]
+
+
+<h3>Dodaj nowy ticket pomocy technicznej</h3>
+
+
+@if (!IsSaved)
+{
+    <EditForm Model="Ticket" OnSubmit="OnSubmit" Enhance FormName="AddTicketForm">
+
+        <div class="row mb-3">
+            <label for="Message" class="col-form-label col-md-3">Message: </label>
+            <div class="col-md-8">
+                <InputTextArea 
+                    id="Message" 
+                    class="form-control col-md-8" 
+                    @bind-Value="@InitialMessage"
+                    placeholder="Wpisz swoją wiadomość"></InputTextArea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="ticketType" class="col-form-label col-md-3">Type: </label>
+            <div class="col-md-8">
+                <InputSelect id="ticketType" class="form-select col-md-8" @bind-Value=@Ticket.TicketType>
+                    <option value="@(TicketType.Question)">Pytanie</option>
+                    <option value="@(TicketType.Idea)">Pomysł</option>
+                    <option value="@(TicketType.Complaint)">Reklamacja</option>
+                    <option value="@(TicketType.Return)">Zwrot</option>
+                </InputSelect>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="pizza" class="col-form-label col-md-3">(Opcjonalnie) Pizza, z którą jest to powiązane:</label>
+            <div class="col-md-8">
+                <InputSelect id="pizza" class="form-select col-md-8" @bind-Value="@Ticket.PizzaId">
+                    @foreach (var pizza in Pizzas)
+                    {
+                        <option value="@pizza.Id">@pizza.Name</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+
+
+        <div>
+            <button type="submit" class="btn btn-outline-primary ms-1">Wyślij</button>
+        </div>
+
+    </EditForm>
+}
+else
+{
+    <h4 class="text-success">@Message</h4>
+} 
