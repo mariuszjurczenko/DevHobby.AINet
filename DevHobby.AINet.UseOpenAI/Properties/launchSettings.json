@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UseOpenAIFromNET": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "OPENAI_API_KEY": "MOJ_SUPER_TAJNY_KLUCZ_LOKALNY_USER_SECRETS"
+      }
+    }
+  }
+}
