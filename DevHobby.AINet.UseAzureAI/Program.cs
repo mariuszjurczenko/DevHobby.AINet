@@ -12,7 +12,9 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 // await SummarizeText.SummarizeContentAsync();
 
 // SentimentAnalysis
-SentimentAnalysis.AnalyzeCustomerSentiment();
+// SentimentAnalysis.AnalyzeCustomerSentiment();
 
+// EntityRecognition
+EntityRecognizer.AnalyzeEntities();
 
 Console.ReadLine();
