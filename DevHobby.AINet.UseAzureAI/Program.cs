@@ -1,5 +1,6 @@
 ﻿using DevHobby.AINet.UseAzureAI.Language;
 using DevHobby.AINet.UseAzureAI.Translations;
+using DevHobby.AINet.UseAzureAI.Vision;
 using Microsoft.Extensions.Configuration;
 
 var builder = new ConfigurationBuilder();
@@ -18,7 +19,11 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 // EntityRecognition
 // EntityRecognizer.AnalyzeEntities();
 
-//Translation
-await TextTranslator.PerformTextTranslationAsync();
+// Translation
+// await TextTranslator.PerformTextTranslationAsync();
+
+// Vision
+// Image caption generation
+ImageCaptionGenerator.CreateImageDescription();
 
 Console.ReadLine();
