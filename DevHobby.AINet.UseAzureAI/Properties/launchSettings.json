@@ -9,7 +9,9 @@
         "TRANSLATION_ENDPOINT": "https://devhobby-ai-translator.cognitiveservices.azure.com/",
         "TRANSLATION_REGION": "westeurope",
         "VISION_KEY": "<ADD_YOUR_LANGUAGE_KEY_HERE>",
-        "VISION_ENDPOINT": "https://devhobby-ai-przetwarzanieobrazow.cognitiveservices.azure.com/"
+        "VISION_ENDPOINT": "https://devhobby-ai-przetwarzanieobrazow.cognitiveservices.azure.com/",
+        "SPEECH_KEY": "<ADD_YOUR_LANGUAGE_KEY_HERE>",
+        "SPEECH_REGION": "westeurope"
       }
     }
   }

@@ -1,4 +1,5 @@
 ﻿using DevHobby.AINet.UseAzureAI.Language;
+using DevHobby.AINet.UseAzureAI.Speech;
 using DevHobby.AINet.UseAzureAI.Translations;
 using DevHobby.AINet.UseAzureAI.Vision;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,11 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 // TagGenerator.ExtractImageTags();
 
 // Object recognition
-ObjectRecognition.DetectObjectsInImage();
+// ObjectRecognition.DetectObjectsInImage();
+
+// Speech
+// Speech from file
+await SpeechFromFile.ExecuteSpeechRecognitionAsync();
+
 
 Console.ReadLine();
