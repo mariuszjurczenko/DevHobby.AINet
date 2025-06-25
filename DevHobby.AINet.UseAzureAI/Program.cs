@@ -24,6 +24,9 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 
 // Vision
 // Image caption generation
-ImageCaptionGenerator.CreateImageDescription();
+// ImageCaptionGenerator.CreateImageDescription();
+
+// Tag generation
+TagGenerator.ExtractImageTags();
 
 Console.ReadLine();
