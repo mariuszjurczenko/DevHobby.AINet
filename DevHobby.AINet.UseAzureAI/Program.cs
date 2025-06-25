@@ -8,8 +8,11 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 // LanguageDetector
 // LanguageDetector.DetectLanguage();
 
-//SummarizeText
-await SummarizeText.SummarizeContentAsync();
+// SummarizeText
+// await SummarizeText.SummarizeContentAsync();
+
+// SentimentAnalysis
+SentimentAnalysis.AnalyzeCustomerSentiment();
 
 
 Console.ReadLine();
