@@ -27,6 +27,9 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 // ImageCaptionGenerator.CreateImageDescription();
 
 // Tag generation
-TagGenerator.ExtractImageTags();
+// TagGenerator.ExtractImageTags();
+
+// Object recognition
+ObjectRecognition.DetectObjectsInImage();
 
 Console.ReadLine();
