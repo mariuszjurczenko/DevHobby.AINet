@@ -1,4 +1,5 @@
 ﻿using DevHobby.AINet.UseAzureAI.Language;
+using DevHobby.AINet.UseAzureAI.Translations;
 using Microsoft.Extensions.Configuration;
 
 var builder = new ConfigurationBuilder();
@@ -15,6 +16,9 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 // SentimentAnalysis.AnalyzeCustomerSentiment();
 
 // EntityRecognition
-EntityRecognizer.AnalyzeEntities();
+// EntityRecognizer.AnalyzeEntities();
+
+//Translation
+await TextTranslator.PerformTextTranslationAsync();
 
 Console.ReadLine();
