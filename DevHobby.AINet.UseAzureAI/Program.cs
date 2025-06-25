@@ -6,7 +6,10 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 
 // Language
 // LanguageDetector
-LanguageDetector.DetectLanguage();
+// LanguageDetector.DetectLanguage();
+
+//SummarizeText
+await SummarizeText.SummarizeContentAsync();
 
 
 Console.ReadLine();
