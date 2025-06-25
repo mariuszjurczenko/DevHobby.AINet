@@ -35,7 +35,9 @@ builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.js
 
 // Speech
 // Speech from file
-await SpeechFromFile.ExecuteSpeechRecognitionAsync();
+// await SpeechFromFile.ExecuteSpeechRecognitionAsync();
 
+// Speech from microphone
+await SpeechFromMicrophone.CaptureSpeechAsync();
 
 Console.ReadLine();
