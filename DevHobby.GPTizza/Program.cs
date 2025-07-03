@@ -1,4 +1,5 @@
 using Azure;
+using Azure.AI.TextAnalytics;
 using Azure.AI.Vision.ImageAnalysis;
 using DevHobby.GPTizza.Components;
 using DevHobby.GPTizza.Components.Account;
@@ -83,6 +84,15 @@ builder.Services.AddScoped(sp =>
     return new ImageAnalysisClient(endpoint, credentials);
 });
 
+builder.Services.AddScoped(sp =>
+{
+    var modelSettings = sp.GetRequiredService<IOptions<ModelSettings>>();
+
+    AzureKeyCredential credentials = new(modelSettings.Value.LANGUAGE_KEY);
+    Uri endpoint = new(modelSettings.Value.LANGUAGE_ENDPOINT);
+
+    return new TextAnalyticsClient(endpoint, credentials);
+});
 
 var app = builder.Build();
 

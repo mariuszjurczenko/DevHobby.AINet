@@ -11,36 +11,29 @@
     {
         <h3>@Ticket.Title</h3>
 
-        <div class="row mb-3">
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Ticket ID</label>
-                <div class="col-sm-8">
-                    <label type="text" class="form-control-plaintext">@Ticket.Id</label>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Podsumowanie</label>
-                <div class="col-sm-8">
-                    <label type="text" class="form-control-plaintext">@Ticket.Summary</label>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Ocena klienta (0-5)</label>
-                <div class="col-sm-8">
-                    <label type="text" readonly class="form-control-plaintext">@Ticket.CustomerSentimentScore</label>
-                </div>
-            </div>
+        <div class="col-12 row">
 
             @foreach (var message in Ticket.TicketMessages)
             {
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Oryginalna wiadomość</label>
-                    <div class="col-sm-8">
-                        <label type="text" readonly class="form-control-plaintext">@message.Message</label>
+                <div class="col-12 row mb-3">
+                    <div class="col-1">
+                        <img src="@($"images/icons/{message.TicketMessageSentiment}.png")" class="img-fluid" />
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group row">
+                            <div>
+
+                                <label class="col-sm-4 col-form-label">Original message</label>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <label type="text" readonly class="form-control-plaintext">@message.Message</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <hr class="bg-danger border-2 border-top border-danger" />
             }
         </div>
 

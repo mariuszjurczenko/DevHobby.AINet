@@ -1,4 +1,6 @@
-﻿using DevHobby.GPTizza.Contracts.Repositories;
+﻿using Azure;
+using Azure.AI.TextAnalytics;
+using DevHobby.GPTizza.Contracts.Repositories;
 using DevHobby.GPTizza.Contracts.Services;
 using DevHobby.GPTizza.Model;
 using DevHobby.GPTizza.Util;
@@ -15,15 +17,21 @@ public class TicketDataService : ITicketDataService
     private readonly ITicketRepository _ticketRepository;
     private readonly IPizzaRepository _pizzaRepository;
     private readonly OpenAIClient _openAIClient;
+    private readonly TextAnalyticsClient _textAnalyticsClient;
     private readonly IOptions<ModelSettings> _modelSettings;
     private static JsonSerializerOptions SerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
-    public TicketDataService(ITicketRepository TicketRepository, OpenAIClient openAIClient, IOptions<ModelSettings> modelSettings, IPizzaRepository pizzaRepository)
+    public TicketDataService(ITicketRepository TicketRepository, 
+        OpenAIClient openAIClient, 
+        IOptions<ModelSettings> modelSettings, 
+        IPizzaRepository pizzaRepository,
+        TextAnalyticsClient textAnalyticsClient)
     {
         _ticketRepository = TicketRepository;
         _openAIClient = openAIClient;
         _modelSettings = modelSettings;
         _pizzaRepository = pizzaRepository;
+        _textAnalyticsClient = textAnalyticsClient;
     }
 
     public async Task<Ticket> AddMessageToTicket(int ticketId, TicketMessage ticketMessage)
@@ -59,6 +67,7 @@ public class TicketDataService : ITicketDataService
         ticket.LastModifiedDate = DateTime.Now;
 
         await SummarizeTicket(ticket, p);
+        await GetTicketMessageSentiment(ticket.TicketMessages.First());
 
         return await _ticketRepository.AddTicket(ticket);
     }
@@ -175,6 +184,30 @@ public class TicketDataService : ITicketDataService
         }
 
         return stringBuilder.ToString();
+    }
+
+    private async Task GetTicketMessageSentiment(TicketMessage ticketMessage)
+    {
+        Response<DocumentSentiment> response = await _textAnalyticsClient.AnalyzeSentimentAsync(
+            ticketMessage.Message,
+            options: new AnalyzeSentimentOptions());
+
+        DocumentSentiment sentiment = response.Value;
+
+        if ((sentiment.ConfidenceScores.Positive >= sentiment.ConfidenceScores.Negative)
+         && (sentiment.ConfidenceScores.Positive >= sentiment.ConfidenceScores.Neutral))
+        {
+            ticketMessage.TicketMessageSentiment = TicketMessageSentiment.Positive;
+        }
+        else if (sentiment.ConfidenceScores.Negative >= sentiment.ConfidenceScores.Positive
+              && sentiment.ConfidenceScores.Negative >= sentiment.ConfidenceScores.Neutral)
+        {
+            ticketMessage.TicketMessageSentiment = TicketMessageSentiment.Negative;
+        }
+        else
+        {
+            ticketMessage.TicketMessageSentiment = TicketMessageSentiment.Neutral;
+        }
     }
 
     private class ChatResponse
