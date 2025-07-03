@@ -13,6 +13,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
 		<PackageReference Include="OpenAI" Version="2.0.0-beta.13" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.40.0" />
 	</ItemGroup>
 
 	<ItemGroup>

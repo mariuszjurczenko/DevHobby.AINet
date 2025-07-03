@@ -1,10 +1,11 @@
-﻿using DevHobby.GPTizza.Util;
+﻿using DevHobby.GPTizza.Contracts.Services;
+using DevHobby.GPTizza.Util;
 using Microsoft.AspNetCore.Components;
+using Microsoft.CognitiveServices.Speech;
 using Microsoft.Extensions.Options;
-using OpenAI.Chat;
 using OpenAI;
+using OpenAI.Chat;
 using System.ClientModel;
-using DevHobby.GPTizza.Contracts.Services;
 
 namespace DevHobby.GPTizza.Components.Admin.Pages;
 
@@ -12,8 +13,13 @@ public partial class PizzaCreator
 {
     private ChatClient chatClient;
 
+    private SpeechSynthesizer speechSynthesizer;
+
     [Inject]
     public OpenAIClient OpenAIClient { get; set; }
+
+    [Inject]
+    private SpeechSynthesizer SpeechSynthesizer { get; set; }
 
     [Inject]
     private IPizzaRecipeDataService PizzaRecipeDataService { get; set; }
@@ -28,6 +34,7 @@ public partial class PizzaCreator
     override protected void OnInitialized()
     {
         chatClient = OpenAIClient.GetChatClient(ModelSettings.Value.TextModelName);
+        speechSynthesizer = SpeechSynthesizer;
     }
 
     private async Task OnEnterIngredients()
@@ -60,5 +67,7 @@ public partial class PizzaCreator
                 StateHasChanged();
             }
         }
+
+        await speechSynthesizer.SpeakTextAsync(Message);
     }
 }

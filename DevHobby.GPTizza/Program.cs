@@ -8,6 +8,7 @@ using DevHobby.GPTizza.Services;
 using DevHobby.GPTizza.Util;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CognitiveServices.Speech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OpenAI;
@@ -58,6 +59,16 @@ builder.Services.AddScoped(sp =>
 {
     var modelSettings = sp.GetRequiredService<IOptions<ModelSettings>>();
     return new OpenAIClient(modelSettings.Value.OPENAI_API_KEY);
+});
+
+builder.Services.AddScoped(sp =>
+{
+    var modelSettings = sp.GetRequiredService<IOptions<ModelSettings>>().Value;
+
+    var config = SpeechConfig.FromSubscription(modelSettings.SPEECH_KEY, modelSettings.SPEECH_REGION);
+    config.SpeechSynthesisVoiceName = modelSettings.SPEECH_Voice;
+
+    return new SpeechSynthesizer(config);
 });
 
 var app = builder.Build();

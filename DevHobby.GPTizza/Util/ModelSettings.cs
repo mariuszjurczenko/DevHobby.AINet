@@ -6,4 +6,7 @@ public class ModelSettings
     public string ImageModelName { get; set; } = string.Empty;
     public string AudioModelName { get; set; } = string.Empty;
     public string OPENAI_API_KEY { get; set; } = string.Empty;
+    public string SPEECH_KEY { get; set; } = string.Empty;
+    public string SPEECH_REGION { get; set; } = string.Empty;
+    public string SPEECH_Voice { get; set; } = string.Empty;
 }
