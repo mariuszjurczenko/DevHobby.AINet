@@ -22,6 +22,7 @@
                     <div class="col-8">
                         <div class="form-group row">
                             <div>
+                                <img src="@($"images/flags/{message.Language}.png")" width="30" />
 
                                 <label class="col-sm-4 col-form-label">Original message</label>
                             </div>
@@ -30,6 +31,21 @@
                                 <label type="text" readonly class="form-control-plaintext">@message.Message</label>
                             </div>
                         </div>
+
+                        @if (message.Language != "pl")
+                        {
+                            <div class="form-group row">
+                                <div>
+                                    <img src="images/flags/pl.png" width="30" />
+
+                                    <label class="col-sm-4 col-form-label">Translated message</label>
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <label type="text" readonly class="form-control-plaintext">@message.MessageEn</label>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
 

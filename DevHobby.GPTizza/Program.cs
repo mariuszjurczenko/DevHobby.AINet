@@ -1,5 +1,6 @@
 using Azure;
 using Azure.AI.TextAnalytics;
+using Azure.AI.Translation.Text;
 using Azure.AI.Vision.ImageAnalysis;
 using DevHobby.GPTizza.Components;
 using DevHobby.GPTizza.Components.Account;
@@ -92,6 +93,16 @@ builder.Services.AddScoped(sp =>
     Uri endpoint = new(modelSettings.Value.LANGUAGE_ENDPOINT);
 
     return new TextAnalyticsClient(endpoint, credentials);
+});
+
+builder.Services.AddScoped(sp =>
+{
+    var modelSettings = sp.GetRequiredService<IOptions<ModelSettings>>();
+
+    AzureKeyCredential credentials = new(modelSettings.Value.TRANSLATION_KEY);
+    string translationRegion = modelSettings.Value.TRANSLATION_REGION;
+
+    return new TextTranslationClient(credentials, translationRegion);
 });
 
 var app = builder.Build();

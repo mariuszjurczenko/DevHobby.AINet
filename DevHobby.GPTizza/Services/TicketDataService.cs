@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.AI.TextAnalytics;
+using Azure.AI.Translation.Text;
 using DevHobby.GPTizza.Contracts.Repositories;
 using DevHobby.GPTizza.Contracts.Services;
 using DevHobby.GPTizza.Model;
@@ -18,6 +19,7 @@ public class TicketDataService : ITicketDataService
     private readonly IPizzaRepository _pizzaRepository;
     private readonly OpenAIClient _openAIClient;
     private readonly TextAnalyticsClient _textAnalyticsClient;
+    private readonly TextTranslationClient _textTranslationClient;
     private readonly IOptions<ModelSettings> _modelSettings;
     private static JsonSerializerOptions SerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
@@ -25,13 +27,15 @@ public class TicketDataService : ITicketDataService
         OpenAIClient openAIClient, 
         IOptions<ModelSettings> modelSettings, 
         IPizzaRepository pizzaRepository,
-        TextAnalyticsClient textAnalyticsClient)
+        TextAnalyticsClient textAnalyticsClient,
+        TextTranslationClient textTranslationClient)
     {
         _ticketRepository = TicketRepository;
         _openAIClient = openAIClient;
         _modelSettings = modelSettings;
         _pizzaRepository = pizzaRepository;
         _textAnalyticsClient = textAnalyticsClient;
+        _textTranslationClient = textTranslationClient;
     }
 
     public async Task<Ticket> AddMessageToTicket(int ticketId, TicketMessage ticketMessage)
@@ -68,6 +72,7 @@ public class TicketDataService : ITicketDataService
 
         await SummarizeTicket(ticket, p);
         await GetTicketMessageSentiment(ticket.TicketMessages.First());
+        await GetTicketLanguage(ticket.TicketMessages.First());
 
         return await _ticketRepository.AddTicket(ticket);
     }
@@ -207,6 +212,22 @@ public class TicketDataService : ITicketDataService
         else
         {
             ticketMessage.TicketMessageSentiment = TicketMessageSentiment.Neutral;
+        }
+    }
+
+    private async Task GetTicketLanguage(TicketMessage ticketMessage)
+    {
+        Azure.AI.TextAnalytics.DetectedLanguage detectedLanguage = _textAnalyticsClient.DetectLanguage(ticketMessage.Message);
+        ticketMessage.Language = detectedLanguage.Iso6391Name;
+
+        string targetLanguage = "pl";
+
+        if (detectedLanguage.Iso6391Name != targetLanguage)
+        {
+            Response<IReadOnlyList<TranslatedTextItem>> response = await _textTranslationClient.TranslateAsync(targetLanguage, ticketMessage.Message);
+            IReadOnlyList<TranslatedTextItem> translations = response.Value;
+            TranslatedTextItem translation = translations.FirstOrDefault();
+            ticketMessage.MessageEn = translation?.Translations?.FirstOrDefault()?.Text;
         }
     }
 

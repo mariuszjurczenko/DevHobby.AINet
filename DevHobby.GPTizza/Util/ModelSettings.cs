@@ -13,4 +13,7 @@ public class ModelSettings
     public string VISION_ENDPOINT { get; set; } = string.Empty;
     public string LANGUAGE_KEY { get; set; } = string.Empty;
     public string LANGUAGE_ENDPOINT { get; set; } = string.Empty;
+    public string TRANSLATION_KEY { get; set; } = string.Empty;
+    public string TRANSLATION_ENDPOINT { get; set; } = string.Empty;
+    public string TRANSLATION_REGION { get; set; } = string.Empty;
 }
