@@ -1,4 +1,5 @@
-﻿using DevHobby.GPTizza.Contracts.Services;
+﻿using Azure.AI.Vision.ImageAnalysis;
+using DevHobby.GPTizza.Contracts.Services;
 using DevHobby.GPTizza.Model;
 using DevHobby.GPTizza.Util;
 using Microsoft.AspNetCore.Components;
@@ -26,6 +27,9 @@ public partial class PizzaAdd
 
     [Inject]
     public OpenAIClient OpenAIClient { get; set; }
+
+    [Inject]
+    public ImageAnalysisClient ImageAnalysisClient { get; set; }
 
     private string Message = string.Empty;
     private bool Generating = false;
@@ -116,5 +120,12 @@ public partial class PizzaAdd
 
         Generating = false;
         StateHasChanged();
+    }
+
+    private async Task GenerateAltText()
+    {
+        ImageAnalysisResult result = ImageAnalysisClient.Analyze(new Uri(Pizza.ImageUrl), VisualFeatures.Caption | VisualFeatures.Read);
+
+        Pizza.AltText = result.Caption.Text;
     }
 }

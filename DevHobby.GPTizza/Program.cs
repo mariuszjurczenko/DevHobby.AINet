@@ -1,3 +1,5 @@
+using Azure;
+using Azure.AI.Vision.ImageAnalysis;
 using DevHobby.GPTizza.Components;
 using DevHobby.GPTizza.Components.Account;
 using DevHobby.GPTizza.Contracts.Repositories;
@@ -70,6 +72,17 @@ builder.Services.AddScoped(sp =>
 
     return new SpeechSynthesizer(config);
 });
+
+builder.Services.AddScoped(sp =>
+{
+    var modelSettings = sp.GetRequiredService<IOptions<ModelSettings>>();
+
+    AzureKeyCredential credentials = new(modelSettings.Value.VISION_KEY);
+    Uri endpoint = new(modelSettings.Value.VISION_ENDPOINT);
+
+    return new ImageAnalysisClient(endpoint, credentials);
+});
+
 
 var app = builder.Build();
 

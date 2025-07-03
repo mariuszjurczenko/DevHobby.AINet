@@ -52,6 +52,15 @@
         </div>
 
         <div class="row mb-3">
+            <label for="shortDescription" class="col-form-label col-md-3">Tekst alternatywny: </label>
+            <div class="col-md-8">
+                <InputText id="shortDescription" class="form-control col-md-8" @bind-Value="@Pizza.AltText"
+                           placeholder="wprowadz tekst alternatywny dla obrazka (ALT)"></InputText>
+                <button type="button" class="btn btn-primary mt-1" @onclick="GenerateAltText">Generuj</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <label for="price" class="col-form-label col-md-3">Cena: </label>
             <div class="col-md-8">
                 <InputNumber id="price" class="form-control col-md-8" @bind-Value="@Pizza.Price" placeholder="Wprowadz cene"></InputNumber>
