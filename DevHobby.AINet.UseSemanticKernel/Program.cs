@@ -19,4 +19,8 @@ var imageModel = config["imageModelName"];
 // RunLiveResponseChat
 // await new AIChatExamples().RunLiveResponseChat(modelName);
 
-await new AIChatExamples().ExperimentWithAISettings(modelName);
+// ExperimentWithAISettings
+// await new AIChatExamples().ExperimentWithAISettings(modelName);
+
+//2. Image generation
+await new ImageGeneration().GenerateBasicImage(imageModel);
