@@ -10,4 +10,8 @@ var modelName = config["modelName"];
 var imageModel = config["imageModelName"];
 
 // 1. AIChatExamples
-await new AIChatExamples().RunBasicPromptLoop(modelName);
+// RunBasicPromptLoop
+// await new AIChatExamples().RunBasicPromptLoop(modelName);
+
+// RunChatWithHistory
+await new AIChatExamples().RunChatWithHistory(modelName);
