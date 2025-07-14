@@ -3,7 +3,7 @@
     "UseSemanticKernel": {
       "commandName": "Project",
       "environmentVariables": {
-        "OPENAI_API_KEY": "<ADD_YOUR_LANGUAGE_KEY_HERE>"
+        "OPENAI_API_KEY": "<ADD_YOUR_LANGUAGE_KEY_HERE>",
       }
     }
   }
