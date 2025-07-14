@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHobby.GPTizza", "DevHobb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHobby.AINet.UseAzureAI", "DevHobby.AINet.UseAzureAI\DevHobby.AINet.UseAzureAI.csproj", "{9E870765-1468-431C-BC92-33ECA7D9DCD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHobby.AINet.UseSemanticKernel", "DevHobby.AINet.UseSemanticKernel\DevHobby.AINet.UseSemanticKernel.csproj", "{94892380-F496-4384-8593-FC4B8CF99659}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9E870765-1468-431C-BC92-33ECA7D9DCD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E870765-1468-431C-BC92-33ECA7D9DCD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E870765-1468-431C-BC92-33ECA7D9DCD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94892380-F496-4384-8593-FC4B8CF99659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94892380-F496-4384-8593-FC4B8CF99659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94892380-F496-4384-8593-FC4B8CF99659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94892380-F496-4384-8593-FC4B8CF99659}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
