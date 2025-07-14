@@ -17,4 +17,6 @@ var imageModel = config["imageModelName"];
 // await new AIChatExamples().RunChatWithHistory(modelName);
 
 // RunLiveResponseChat
-await new AIChatExamples().RunLiveResponseChat(modelName);
+// await new AIChatExamples().RunLiveResponseChat(modelName);
+
+await new AIChatExamples().ExperimentWithAISettings(modelName);

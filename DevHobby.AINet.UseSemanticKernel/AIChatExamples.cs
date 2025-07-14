@@ -1,5 +1,6 @@
 ﻿using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace DevHobby.AINet.UseSemanticKernel;
 
@@ -63,5 +64,20 @@ public class AIChatExamples
         {
             Console.Write(chatUpdate.Content);
         }
+    }
+
+    public async Task ExperimentWithAISettings(string modelName)
+    {
+        Kernel kernel = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId: modelName, apiKey: Environment.GetEnvironmentVariable("OPENAI_API_KEY")).Build();
+
+        KernelArguments arguments = new(new OpenAIPromptExecutionSettings { MaxTokens = 500, Temperature = 0 });
+        Console.WriteLine("Temperatura 0:");
+        Console.WriteLine(await kernel.InvokePromptAsync(
+            "Opowiedz mi historię o Pizzeri GPTizza z Katowic, który słynie z pysznych pizz", arguments));
+
+        arguments = new(new OpenAIPromptExecutionSettings { MaxTokens = 500, Temperature = 1 });
+        Console.WriteLine("Temperatura 1:");
+        Console.WriteLine(await kernel.InvokePromptAsync(
+            "Opowiedz mi historię o Pizzeri GPTizza z Katowic, który słynie z pysznych pizz", arguments));
     }
 }
