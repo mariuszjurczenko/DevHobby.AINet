@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.SemanticKernel;
 using OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -104,6 +105,10 @@ builder.Services.AddScoped(sp =>
 
     return new TextTranslationClient(credentials, translationRegion);
 });
+
+builder.Services.AddKernel()
+    .AddOpenAIChatCompletion(builder.Configuration.GetSection("ModelSettings").GetValue<string>("TextModelName"), builder.Configuration.GetSection("ModelSettings").GetValue<string>("OPENAI_API_KEY"))
+    .AddOpenAITextToImage(builder.Configuration.GetSection("ModelSettings").GetValue<string>("OPENAI_API_KEY"), modelId: builder.Configuration.GetSection("ModelSettings").GetValue<string>("ImageModelName"));
 
 var app = builder.Build();
 
