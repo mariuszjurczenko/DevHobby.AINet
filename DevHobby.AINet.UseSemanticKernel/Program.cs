@@ -26,4 +26,8 @@ var imageModel = config["imageModelName"];
 // await new ImageGeneration().GenerateBasicImage(imageModel);
 
 //3. Plugins
-await new UsingPlugins().GetDaysUntilNewYearsEve(modelName);
+// GetDaysUntilNewYearsEve
+// await new UsingPlugins().GetDaysUntilNewYearsEve(modelName);
+
+// ChatWithMultiplePlugins
+await new UsingPlugins().ChatWithMultiplePlugins(modelName);
