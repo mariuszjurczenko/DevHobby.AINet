@@ -22,5 +22,8 @@ var imageModel = config["imageModelName"];
 // ExperimentWithAISettings
 // await new AIChatExamples().ExperimentWithAISettings(modelName);
 
-//2. Image generation
-await new ImageGeneration().GenerateBasicImage(imageModel);
+// 2. Image generation
+// await new ImageGeneration().GenerateBasicImage(imageModel);
+
+//3. Plugins
+await new UsingPlugins().GetDaysUntilNewYearsEve(modelName);
